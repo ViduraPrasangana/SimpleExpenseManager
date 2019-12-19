@@ -37,6 +37,7 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountExcep
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 
 import static lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants.EXPENSE_MANAGER;
+
 /**
  *
  */
@@ -68,19 +69,22 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
         amount = (EditText) rootView.findViewById(R.id.amount);
         accountSelector = (Spinner) rootView.findViewById(R.id.account_selector);
         currentExpenseManager = (ExpenseManager) getArguments().get(EXPENSE_MANAGER);
-        ArrayAdapter<String> adapter =
-                null;
-        if (currentExpenseManager != null) {
-            adapter = new ArrayAdapter<>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item,
-                    currentExpenseManager.getAccountNumbersList());
-        }
-        accountSelector.setAdapter(adapter);
 
+        setAdapter();
         expenseTypeGroup = (RadioGroup) rootView.findViewById(R.id.expense_type_group);
         RadioButton expenseType = (RadioButton) rootView.findViewById(R.id.expense);
         RadioButton incomeType = (RadioButton) rootView.findViewById(R.id.income);
         datePicker = (DatePicker) rootView.findViewById(R.id.date_selector);
         return rootView;
+    }
+
+    public void setAdapter() {
+        ArrayAdapter<String> adapter = null;
+        if (currentExpenseManager != null) {
+            adapter = new ArrayAdapter<>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item,
+                    currentExpenseManager.getAccountNumbersList());
+        }
+        accountSelector.setAdapter(adapter);
     }
 
     @Override
@@ -111,11 +115,11 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
                                 .setMessage(e.getMessage())
                                 .setNeutralButton(this.getString(R.string.msg_ok),
                                         new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        }).setIcon(android.R.drawable.ic_dialog_alert).show();
                     }
                 }
                 amount.getText().clear();
