@@ -22,21 +22,13 @@ public class PersistentTransactionDAO implements TransactionDAO {
     private Context context;
     private SQLiteDatabase database;
     private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
     public PersistentTransactionDAO(Context context) {
         this.context = context;
         dbHelper = DatabaseHelper.getInstance(context);
         database = dbHelper.getWritableDatabase();
     }
 
-//    public PersistentTransactionDAO open() {
-//        dbHelper = DatabaseHelper.getInstance(context);
-//        database = dbHelper.getWritableDatabase();
-//        return this;
-//    }
-
-    public void close() {
-        dbHelper.close();
-    }
 
     @Override
     public void logTransaction(Date date, String accountNo, ExpenseType expenseType, double amount) {

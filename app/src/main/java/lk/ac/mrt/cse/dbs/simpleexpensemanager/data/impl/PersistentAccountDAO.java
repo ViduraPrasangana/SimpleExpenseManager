@@ -20,16 +20,8 @@ public class PersistentAccountDAO implements AccountDAO {
 
     public PersistentAccountDAO(Context context) {
         this.context = context;
-    }
-
-    public PersistentAccountDAO open() {
         dbHelper = DatabaseHelper.getInstance(context);
         database = dbHelper.getWritableDatabase();
-        return this;
-    }
-
-    public void close() {
-        dbHelper.close();
     }
 
     @Override

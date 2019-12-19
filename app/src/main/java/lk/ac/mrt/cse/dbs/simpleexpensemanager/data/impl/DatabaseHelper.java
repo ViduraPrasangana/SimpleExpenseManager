@@ -62,4 +62,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return instance;
     }
+
+    public static void closeDB(){
+        if(instance!=null){
+            instance.close();
+        }
+    }
 }
